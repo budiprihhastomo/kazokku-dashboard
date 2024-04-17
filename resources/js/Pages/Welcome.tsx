@@ -1,5 +1,8 @@
-import { Link, Head } from "@inertiajs/react";
+import { Link, Head, router } from "@inertiajs/react";
 import { PageProps } from "@/types";
+import { Button } from "@/Components/ui/button";
+import { toast } from "sonner";
+import { Toaster } from "@/Components/ui/sonner";
 
 export default function Welcome({
     auth,
@@ -15,6 +18,20 @@ export default function Welcome({
             .getElementById("docs-card-content")
             ?.classList.add("!flex-row");
         document.getElementById("background")?.classList.add("!hidden");
+    };
+
+    const clearCache = () => {
+        router.post(
+            route("clear.cache"),
+            {},
+            {
+                onSuccess: () => {
+                    toast("Success!", {
+                        description: "Cache is already cleaned!",
+                    });
+                },
+            }
+        );
     };
 
     return (
@@ -60,12 +77,20 @@ export default function Welcome({
                                         {auth.roles.findIndex(
                                             (a) => a === "admin"
                                         ) >= 0 && (
-                                            <Link
-                                                href={route("user.index")}
-                                                className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
-                                            >
-                                                Users Management
-                                            </Link>
+                                            <>
+                                                <Link
+                                                    href={route("user.index")}
+                                                    className="rounded-md px-3 py-2 text-black ring-1 ring-transparent transition hover:text-black/70 focus:outline-none focus-visible:ring-[#FF2D20] dark:text-white dark:hover:text-white/80 dark:focus-visible:ring-white"
+                                                >
+                                                    Users
+                                                </Link>
+                                                <Button
+                                                    variant={"destructive"}
+                                                    onClick={clearCache}
+                                                >
+                                                    Clear Cache
+                                                </Button>
+                                            </>
                                         )}
                                     </>
                                 ) : (
@@ -381,6 +406,7 @@ export default function Welcome({
                             Laravel v{laravelVersion} (PHP v{phpVersion})
                         </footer>
                     </div>
+                    <Toaster />
                 </div>
             </div>
         </>
