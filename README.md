@@ -7,60 +7,117 @@
 <a href="https://packagist.org/packages/laravel/framework"><img src="https://img.shields.io/packagist/l/laravel/framework" alt="License"></a>
 </p>
 
-## About Laravel
+# Dokumentasi Aplikasi
 
-Laravel is a web application framework with expressive, elegant syntax. We believe development must be an enjoyable and creative experience to be truly fulfilling. Laravel takes the pain out of development by easing common tasks used in many web projects, such as:
+## Persyaratan Sistem
 
-- [Simple, fast routing engine](https://laravel.com/docs/routing).
-- [Powerful dependency injection container](https://laravel.com/docs/container).
-- Multiple back-ends for [session](https://laravel.com/docs/session) and [cache](https://laravel.com/docs/cache) storage.
-- Expressive, intuitive [database ORM](https://laravel.com/docs/eloquent).
-- Database agnostic [schema migrations](https://laravel.com/docs/migrations).
-- [Robust background job processing](https://laravel.com/docs/queues).
-- [Real-time event broadcasting](https://laravel.com/docs/broadcasting).
+Pastikan sistem Anda memenuhi persyaratan berikut sebelum menginstal aplikasi:
 
-Laravel is accessible, powerful, and provides tools required for large, robust applications.
+- PHP versi minimum 8.3 telah terpasang.
+- Node.js versi 20 telah terinstal.
 
-## Learning Laravel
+## Clone Repositori
 
-Laravel has the most extensive and thorough [documentation](https://laravel.com/docs) and video tutorial library of all modern web application frameworks, making it a breeze to get started with the framework.
+Clone repositori aplikasi ke dalam direktori lokal Anda:
 
-You may also try the [Laravel Bootcamp](https://bootcamp.laravel.com), where you will be guided through building a modern Laravel application from scratch.
+```bash
+git clone git@github.com:budiprihhastomo/kazokku-dashboard.git
+```
 
-If you don't feel like reading, [Laracasts](https://laracasts.com) can help. Laracasts contains thousands of video tutorials on a range of topics including Laravel, modern PHP, unit testing, and JavaScript. Boost your skills by digging into our comprehensive video library.
+## Konfigurasi Lingkungan
 
-## Laravel Sponsors
+Salin file .env.example ke .env dan sesuaikan pengaturan lingkungan sesuai kebutuhan aplikasi Anda.
 
-We would like to extend our thanks to the following sponsors for funding Laravel development. If you are interested in becoming a sponsor, please visit the [Laravel Partners program](https://partners.laravel.com).
 
-### Premium Partners
+## Instalasi Dependensi
 
-- **[Vehikl](https://vehikl.com/)**
-- **[Tighten Co.](https://tighten.co)**
-- **[WebReinvent](https://webreinvent.com/)**
-- **[Kirschbaum Development Group](https://kirschbaumdevelopment.com)**
-- **[64 Robots](https://64robots.com)**
-- **[Curotec](https://www.curotec.com/services/technologies/laravel/)**
-- **[Cyber-Duck](https://cyber-duck.co.uk)**
-- **[DevSquad](https://devsquad.com/hire-laravel-developers)**
-- **[Jump24](https://jump24.co.uk)**
-- **[Redberry](https://redberry.international/laravel/)**
-- **[Active Logic](https://activelogic.com)**
-- **[byte5](https://byte5.de)**
-- **[OP.GG](https://op.gg)**
+Instal semua dependensi PHP dan JavaScript dengan menjalankan perintah berikut:
 
-## Contributing
+```bash
+composer install
+npm install
+```
 
-Thank you for considering contributing to the Laravel framework! The contribution guide can be found in the [Laravel documentation](https://laravel.com/docs/contributions).
+## Migrasi Database
 
-## Code of Conduct
+Sebelum menggunakan aplikasi, lakukan migrasi database dan seeding dengan menjalankan perintah:
 
-In order to ensure that the Laravel community is welcoming to all, please review and abide by the [Code of Conduct](https://laravel.com/docs/contributions#code-of-conduct).
+```bash
+./vendor/bin/sail up -d
+./vendor/bin/sail artisan migrate --seed
+```
 
-## Security Vulnerabilities
+## Evidence Untuk Aplikasi Yang Sudah Berjalan
+![Before Login](./docs/screenshoots/2.png)
 
-If you discover a security vulnerability within Laravel, please send an e-mail to Taylor Otwell via [taylor@laravel.com](mailto:taylor@laravel.com). All security vulnerabilities will be promptly addressed.
+![After Login](./docs/screenshoots/1.png)
 
-## License
+![Login Page](./docs/screenshoots/3.png)
 
-The Laravel framework is open-sourced software licensed under the [MIT license](https://opensource.org/licenses/MIT).
+![Exchange Rates](./docs/screenshoots/4.png)
+
+![Exchange Rates - 2](./docs/screenshoots/5.png)
+
+![User Management](./docs/screenshoots/6.png)
+
+![Add User](./docs/screenshoots/7.png)
+
+![Remove User](./docs/screenshoots/8.png)
+
+![Show Profile](./docs/screenshoots/9.png)
+
+## List Route Table Aplikasi
+
+| Method | URI                             | Controller                                         | Action                                            |
+| ------ | ------------------------------- | -------------------------------------------------- | ------------------------------------------------- |
+| GET    | HEAD  /                         | -                                                  | -                                                 |
+| POST   | _ignition/execute-solution      | Spatie\LaravelIgnition\ExecuteSolutionController   | ignition.executeSolution › Spatie\LaravelIgnition |
+| GET    | HEAD  _ignition/health-check    | Spatie\LaravelIgnition\HealthCheckController       | ignition.healthCheck › Spatie\LaravelIgnition     |
+| POST   | _ignition/update-config         | Spatie\LaravelIgnition\UpdateConfigController      | ignition.updateConfig › Spatie\LaravelIgnition    |
+| GET    | HEAD  admin/user                | UserController@index                               | user.index                                        |
+| POST   | admin/user                      | UserController@store                               | user.store                                        |
+| PATCH  | admin/user/{id}                 | UserController@update                              | user.update                                       |
+| DELETE | admin/user/{id}                 | UserController@destroy                             | user.delete                                       |
+| GET    | HEAD  api/symbols               | Api\CurrencySymbolController@index                 | currency.symbols                                  |
+| GET    | HEAD  api/user                  | -                                                  | -                                                 |
+| POST   | cache-clear                     | -                                                  | clear.cache                                       |
+| GET    | HEAD  confirm-password          | Auth\ConfirmablePasswordController@show            | password.confirm                                  |
+| POST   | confirm-password                | Auth\ConfirmablePasswordController@store           | -                                                 |
+| GET    | HEAD  dashboard                 | DashboardController@show                           | dashboard                                         |
+| POST   | email/verification-notification | Auth\EmailVerificationNotificationController@store | verification.send                                 |
+| POST   | forgot-password                 | Auth\PasswordResetLinkController@store             | password.email                                    |
+| GET    | HEAD  login                     | Auth\AuthenticatedSessionController@create         | login                                             |
+| POST   | login                           | Auth\AuthenticatedSessionController@store          | -                                                 |
+| POST   | logout                          | Auth\AuthenticatedSessionController@destroy        | logout                                            |
+| PUT    | password                        | Auth\PasswordController@update                     | password.update                                   |
+| GET    | HEAD  profile                   | ProfileController@edit                             | profile.edit                                      |
+| PATCH  | profile                         | ProfileController@update                           | profile.update                                    |
+| DELETE | profile                         | ProfileController@destroy                          | profile.destroy                                   |
+| POST   | register                        | Auth\RegisteredUserController@store                | -                                                 |
+| POST   | reset-password                  | Auth\NewPasswordController@store                   | password.store                                    |
+| GET    | HEAD  reset-password/{token}    | Auth\NewPasswordController@create                  | password.reset                                    |
+| GET    | HEAD  sanctum/csrf-cookie       | Laravel\Sanctum\CsrfCookieController@show          | sanctum.csrf-cookie                               |
+| GET    | HEAD  up                        | -                                                  | -                                                 |
+| GET    | HEAD  verify-email              | Auth\EmailVerificationPromptController             | verification.notice                               |
+| GET    | HEAD  verify-email/{id}/{hash}  | Auth\VerifyEmailController                         | verification.verify                               |
+
+
+## Kesimpulan
+
+Aplikasi ini adalah sebuah sistem yang memungkinkan pengguna untuk melihat kurs mata uang yang terbaru. Dibangun dengan menggunakan kerangka kerja Laravel, aplikasi ini menawarkan beberapa fitur utama:
+
+### Aksesibilitas Rute
+
+Aplikasi menyediakan berbagai rute yang dapat diakses melalui HTTP verb seperti GET, HEAD, POST, PATCH, DELETE. Rute-rute ini mengarahkan pengguna ke fungsi-fungsi tertentu di dalam aplikasi, termasuk manajemen pengguna, dashboard, dan fungsi otentikasi.
+
+### Manajemen Pengguna
+
+Pengguna memiliki akses ke halaman administratif untuk manajemen pengguna. Mereka dapat melihat, menambahkan, memperbarui, dan menghapus pengguna sesuai kebutuhan.
+
+### Pratinjau Aplikasi
+
+Aplikasi dapat dijalankan dalam mode pratinjau menggunakan Laravel Sail (Dockerize), yang memungkinkan pengembang untuk melihat hasil kerja mereka sebelum diterapkan secara luas.
+
+### Migrasi Database
+
+Sebelum menggunakan aplikasi, pengguna harus melakukan migrasi database dan seeding. Ini memastikan struktur database yang diperlukan telah dibuat dan data awal telah dimasukkan.
