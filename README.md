@@ -35,7 +35,11 @@ Instal semua dependensi PHP dan JavaScript dengan menjalankan perintah berikut:
 
 ```bash
 composer install
-npm install
+npm install && npm run dev
+
+# Atau bisa juga menggunakan, tergantung kebutuhan.
+
+npm install && npm run dev
 ```
 
 ## Migrasi Database
